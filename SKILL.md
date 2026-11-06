@@ -64,18 +64,21 @@ YYYY-MM-DD · <stage> · <what happened>, and why if it isn't obvious
 Log these:
 - the plan was written, and the user approved it (end of review)
 - a pivotal choice was confirmed or changed
-- PLAN.md was changed in any way beyond a typo: what changed and why
+- PLAN.md was updated, by any stage and however small: what changed and why (edits made in one pass can share a line)
 - the review verdict, when it found something blocking
 - tests failed and work returned to implement
 - the Goal or scope changed
 - a significant deviation (point to its DEVIATIONS.md entry instead of repeating it)
 
-Don't log routine progress (that is the Done list) or small edits. One line each, with the why mattering more than the what, since git already has the diff. When a stage rewrites the rest of PROGRESS.md, leave History untouched.
+Don't log routine progress (that is the Done list). Edits to other files don't need a line; edits to PLAN.md always do. One line each, with the why mattering more than the what, since git already has the diff. When a stage rewrites the rest of PROGRESS.md, leave History untouched.
 
 ## Principles (why the stages are shaped this way)
 
 - **Files carry memory.** A fresh agent that reads PLAN.md and PROGRESS.md can continue the work with no chat history. Write state down at the moment it happens, because agents recall it poorly later.
-- **Fresh context per stage.** Review, test, report and integrate should not inherit the reasoning of the stage before. A reviewer that saw the planner's thinking tends to agree with it. Use a subagent for these stages when available; otherwise tell the user to run `/clear` first. Plan is interactive, so it runs in the main session. Implement can run in the main session or a subagent.
+- **Fresh context per stage.** Review, test, report and integrate should not inherit the reasoning of the stage before. A reviewer that saw the planner's thinking tends to agree with it. A fresh session or `/clear` is enough; a subagent is optional, never required. Plan is interactive, so it needs the user in the loop. Questions to the user belong in the plan stage, before PLAN.md is finished; later stages work from the plan and don't re-interview.
+- **Work from the local code.** Read the working tree as it is now, committed and uncommitted, and never assume code is pushed. Don't fetch, pull or push unless the user asks.
+- **Never commit.** No stage runs `git commit`, `git add`, `git stash`, `git reset`, `git checkout` over changes, or anything else that alters git history, the index or the working tree's tracked state. The user does all committing manually. Read-only git (`status`, `diff`, `log`, `rev-parse`) is fine.
+- **For large tasks only.** This workflow is for work big enough to lose context. For small or one-file changes, skip it; the ceremony costs more than it saves.
 - **One place per fact.** PLAN.md holds the current truth. When something changes, rewrite the affected text and delete what it replaces. Duplicated or superseded text is what creates conflicts. The change history lives only in PROGRESS.md's History section, never inside PLAN.md.
 - **Scoped by default.** Tests cover only what the diff touches. The full suite runs only when the user explicitly asks.
 - **Short beats complete.** Every document here is read by someone busy. Specific and brief wins over thorough.

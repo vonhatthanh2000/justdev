@@ -6,6 +6,8 @@ Goal: build what PLAN.md says, in a way that survives a context reset at any mom
 
 Read PLAN.md and PROGRESS.md (if it exists) and nothing else from earlier work. PLAN.md is the whole spec; don't build from PIVOTAL.md, which is a human decision record. Decisions in PLAN.md are fixed, so don't re-open them. If PROGRESS.md exists, resume from "next"; don't redo finished tasks. If the working tree has uncommitted changes you didn't make, tell the user before touching it.
 
+**Record the base commit.** If PROGRESS.md has no `Base:` line, add one directly under the status line the first time you start: `Base: <output of git rev-parse HEAD>` (before you change anything). The test stage diffs against it, so keep it as is. On a resume, never overwrite it.
+
 ## Work in slices
 
 Take the tasks in order. A slice is a small group of tasks that leaves the code in a working state. For each slice:
@@ -13,9 +15,9 @@ Take the tasks in order. A slice is a small group of tasks that leaves the code 
 1. Implement it.
 2. Do a quick sanity check (build/typecheck/the nearest test), not the whole test stage.
 3. Update PROGRESS.md.
-4. Commit with a message that names the slice.
+4. Stop there. **Don't run `git commit`, `git add`, or anything that changes git history or the index; the user commits manually.** Leave the changes in the working tree.
 
-Committing per slice gives a second checkpoint in git and makes amendments and rollbacks cheap.
+Without commits, PROGRESS.md is the checkpoint, so keep it accurate after every task. At a sensible slice boundary you may suggest the user commit if they want a restore point, but don't do it for them.
 
 ## PROGRESS.md
 
@@ -24,8 +26,9 @@ Update it after every task, not at the end. A context that is already overloaded
 ```markdown
 # Progress
 Status: implement · in progress · next: test · updated 2026-11-06
+Base: <commit sha before any changes>
 ## Done
-- [x] Task 3: <what> (commit abc123)
+- [x] Task 3: <what> (files touched)
 ## In progress
 - Task 4: <current state, what's left>
 ## Next

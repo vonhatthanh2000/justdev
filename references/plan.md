@@ -4,7 +4,8 @@ Goal: turn the user's description into a PLAN.md that a fresh agent can implemen
 
 ## Steps
 
-1. Create `tasks/<YYYY-MM-DD-slug>/` (slug: short, kebab-case, from the goal) and its PROGRESS.md with the title, `Status: plan · in progress · next: review · updated <date>`, and an empty `## History` (format in SKILL.md).
+1. **New task:** create `tasks/<YYYY-MM-DD-slug>/` (slug: short, kebab-case, from the goal) and its PROGRESS.md with the title, `Status: plan · in progress · next: review · updated <date>`, and an empty `## History` (format in SKILL.md).
+   **Re-entering an existing task** (the folder exists, e.g. review sent you back or the user wants to refine the plan): don't create anything. Read the existing PLAN.md (and PIVOTAL.md) and PROGRESS.md, set the status to `plan · in progress`, and continue the interview from what's already decided, asking only about what's open or changing. Edit PLAN.md in place, rewriting affected text and deleting what it replaces. Never overwrite PROGRESS.md or touch existing History lines; only append.
 2. Explore the relevant code first so your questions are informed, not generic.
 3. **Grill the user until nothing is unclear.** Whenever something is ambiguous, ask instead of assuming: a wrong guess costs far more in rework than a question costs now. Follow the approach of the `grill-with-docs` skill: invoke the `grilling` skill for the interview, and also `domain-modeling` when the task introduces or renames domain terms or makes a decision worth recording as an ADR. (`grill-with-docs` itself is user-invoke-only and just calls those two.) If they aren't installed, do the same by hand using the rules below.
    - Ask what changes what gets built: scope edges, data formats, failure behavior, security or auth, compatibility, what must not change.
@@ -64,6 +65,8 @@ For each one, present it as its own question: the options (2-3), your recommenda
 
 Ordinary choices (naming, minor structure, small library calls) are not pivotal; they go in Decisions. Keep the list short, since an overlong one means the signal is lost.
 
+**PIVOTAL.md vs ADRs.** PIVOTAL.md is about this one task only. An ADR (what `domain-modeling` writes) records a decision about the whole system. They don't overlap: if a choice made here also changes how the whole system works, record it as an ADR where the repo keeps its ADRs, and have the PIVOTAL.md entry link to it instead of repeating it. Keep the ADR/glossary output out of the task folder.
+
 ## PIVOTAL.md template
 
 One file per task, one section per pivotal choice. It's written for humans, to help the user decide and to remind the team later why it was chosen, so it can be explanatory. Write it so a reader who wasn't in the interview understands what was chosen and what it will mean in practice. Keep each section to roughly half a page; concrete beats comprehensive. Agents don't implement from this file.
@@ -106,3 +109,5 @@ The scenarios matter most: they make the user picture the consequences before co
 - For blockchain work, make the on-chain/off-chain boundary, account and authority model, and failure/finality handling explicit, because these are the usual sources of rework.
 
 When PLAN.md is written, add a History line ("plan written"), set the status to `plan · complete · next: review`, and tell the user the next step: `/justdev review`.
+
+Every update to PLAN.md made in this stage is logged, not just the first draft. When re-entering, add a History line for each update you make (what changed and why; edits made in the same pass can share one line), including small ones. The history is how the user and later agents see how the plan evolved, and PLAN.md itself keeps only the current text.

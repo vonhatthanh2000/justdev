@@ -4,11 +4,12 @@ Goal: verify the change, running only tests related to it. Use a fresh context s
 
 ## Scope
 
-1. Get the changed files: `git diff --name-only <base>...HEAD` (use the branch base, or the commit before the task started; check the first PLAN-related commit if unsure) plus uncommitted changes.
-2. Map them to test commands using the test map in CLAUDE.md (see SKILL.md). Examples: `cargo test -p <crate>`, `jest --findRelatedTests <files>`, `vitest related <files>`, `pytest <path>`, program tests for the changed on-chain module.
-3. Also cover the plan's "Test scope" and acceptance criteria. If a criterion has no test, say so (and write a test if it's small and clearly within scope).
+1. Get the changed files from the local working tree: use the `Base:` commit recorded in PROGRESS.md. `git diff --name-only <Base>` lists committed and uncommitted changes to tracked files; add new untracked files from `git status --porcelain`. Nothing needs to be pushed. Ignore everything under `tasks/` (PLAN.md, PROGRESS.md and the other workflow files change constantly but aren't code, and they map to no test); for example `git diff --name-only <Base> -- . ':(exclude)tasks'`, and filter `tasks/` out of the untracked list too. If there's no `Base:` line, say so and ask the user for the starting commit instead of guessing.
+2. Find the **affected modules**: the ones that use the changed code (callers, importers, dependent crates or packages, programs that call a changed instruction). Look it up rather than guess, e.g. `cargo tree -i <crate>`, grep for the changed symbols, or the test runner's own related-files option. Keep this to direct dependents unless a change to a public interface or shared type clearly reaches further.
+3. Map the changed code and the affected modules to test commands using the test map in CLAUDE.md (see SKILL.md). Examples: `cargo test -p <crate>`, `jest --findRelatedTests <files>`, `vitest related <files>`, `pytest <path>`, program tests for the changed on-chain module.
+4. Also cover the plan's "Test scope" and acceptance criteria. If a criterion has no test, say so (and write a test if it's small and clearly within scope).
 
-**Run the full project suite only if the user explicitly asks.** Even if you suspect wider impact, name the risk in the results instead of running everything.
+So the scope is exactly two things: the code implemented in this task, and the modules affected by it. Nothing else. **Run the full project suite only if the user explicitly asks.** If you suspect the impact goes beyond the affected modules, don't widen the run: name the risk in the results instead.
 
 ## Run and retry
 

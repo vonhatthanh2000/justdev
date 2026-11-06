@@ -15,12 +15,12 @@ Always ask yourself explicitly: does this contradict any line under Decisions or
 
 ## Simple amend
 
-1. Commit current state first, so `git diff` later shows exactly what changed.
+1. Don't commit anything (the user commits manually). If the user wants a clean before/after in git, suggest they commit the current state first.
 2. Rewrite the affected sections of PLAN.md to the new state. Delete superseded text; don't strike it through or leave it beside the new text.
 3. Add one line to PROGRESS.md's History: date, `amend`, what changed, why. (PLAN.md itself carries no change log.)
 4. Run a delta review in a fresh context: the reviewer reads the changed sections and checks them against the rest of the plan for conflicts, duplicates and untestable criteria (see [review.md](review.md)).
 5. Update PROGRESS.md if tasks were added, removed or reordered, and set the status to where the work now is (usually `implement · in progress`, or `review · awaiting user` for a full review).
-6. Commit the amendment, then resume with `/justdev implement`.
+6. Resume with `/justdev implement`. Leave the changes uncommitted.
 
 ## Full-review amend
 
