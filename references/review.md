@@ -12,6 +12,7 @@ Goal: an independent check of PLAN.md before any code is written. Run it in a fr
 - **Ordering problems**: a task that depends on a later task.
 - **Plan vs reality**: files, functions, or interfaces the plan assumes that don't exist in the code.
 - **Scope drift**: tasks that don't serve the Goal.
+- **Pivotal gaps**: PLAN.md is what gets implemented, so judge it on its own. If PIVOTAL.md exists, read it only to cross-check. Flag a pivotal choice (costly to reverse, or widely depended on) that is buried in Decisions or Tasks, or implied but never confirmed. Don't make the call yourself; raise it as a question for the user so it can get a PIVOTAL.md entry after explicit confirmation. Also flag any PIVOTAL.md choice whose outcome is missing from or contradicted by PLAN.md, and entries missing one of the four parts (function, effect, trade-offs, scenarios).
 
 ## Output
 
@@ -21,4 +22,6 @@ Goal: an independent check of PLAN.md before any code is written. Run it in a fr
 
 ## Approval
 
-This is the user's single approval gate. Ask them to approve the plan (or answer the open questions) before implementation starts. After approval, suggest `/justdev implement`.
+This is the user's single approval gate. Ask them to approve the plan (or answer the open questions) before implementation starts.
+
+Keep the status current in PROGRESS.md: `review · in progress` while reviewing, `review · awaiting user` while waiting for approval. On approval, set `review · complete · next: implement` and add a History line ("plan approved"). If the review found blocking issues or changed PLAN.md, also add a History line saying what changed and why. Then suggest `/justdev implement`.

@@ -40,4 +40,4 @@ Where "good enough for now" was chosen, and the trade-off.
 - Don't pad. If there is nothing real to say under a heading, say so in one line.
 - Don't hide bad news: failing or skipped tests, unresolved deviations and unverified claims belong in the report.
 
-End by suggesting `/justdev integrate` if other teams consume this work.
+Set the status in PROGRESS.md to `report · in progress` when you start and, when done, to `report · complete · next: integrate` (or `done` if other teams don't consume this work). Suggest `/justdev integrate` if they do.

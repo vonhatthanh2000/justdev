@@ -35,7 +35,7 @@ Typical run: `plan` → `review` → `implement` → `test` → `report` → `in
 Each task lives in `tasks/<YYYY-MM-DD-slug>/` in your repo:
 
 ```
-PLAN.md  PROGRESS.md  DEVIATIONS.md  TEST-RESULTS.md
+PLAN.md  PIVOTAL.md  PROGRESS.md  DEVIATIONS.md  TEST-RESULTS.md
 NOTES.md  INTEGRATION.md  INTEGRATION.html
 ```
 

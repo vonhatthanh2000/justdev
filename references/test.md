@@ -30,4 +30,4 @@ What was changed and why (also add to DEVIATIONS.md if it changes behavior).
 Acceptance criteria or areas with no test, and wider risks not run.
 ```
 
-End by suggesting `/justdev report` (or a return to implement if failures remain).
+Status and history in PROGRESS.md: set `test · in progress` when you start. If everything passes, set `test · complete · next: report` and suggest `/justdev report`. If failures remain after your attempts, set `implement · in progress` (the work is back in implementation), add a History line saying what failed and why it returned, and suggest `/justdev implement`.

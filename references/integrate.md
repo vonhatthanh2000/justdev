@@ -28,4 +28,4 @@ Use these headings in this order, and skip a section only if it truly doesn't ap
 - State what is not included only when an integrator might reasonably assume it is.
 - Generate the HTML from the MD content so they can't disagree: a single self-contained file, simple readable styling, code blocks for examples, no external dependencies.
 
-Finish by telling the user where the files are.
+Set the status in PROGRESS.md to `integrate · in progress` when you start and `done · complete` when finished. Finish by telling the user where the files are.

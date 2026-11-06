@@ -4,7 +4,7 @@ Goal: build what PLAN.md says, in a way that survives a context reset at any mom
 
 ## Start
 
-Read PLAN.md and PROGRESS.md (if it exists) and nothing else from earlier work. If PROGRESS.md exists, resume from "next"; don't redo finished tasks. If the working tree has uncommitted changes you didn't make, tell the user before touching it.
+Read PLAN.md and PROGRESS.md (if it exists) and nothing else from earlier work. PLAN.md is the whole spec; don't build from PIVOTAL.md, which is a human decision record. Decisions in PLAN.md are fixed, so don't re-open them. If PROGRESS.md exists, resume from "next"; don't redo finished tasks. If the working tree has uncommitted changes you didn't make, tell the user before touching it.
 
 ## Work in slices
 
@@ -23,6 +23,7 @@ Update it after every task, not at the end. A context that is already overloaded
 
 ```markdown
 # Progress
+Status: implement · in progress · next: test · updated 2026-11-06
 ## Done
 - [x] Task 3: <what> (commit abc123)
 ## In progress
@@ -31,7 +32,11 @@ Update it after every task, not at the end. A context that is already overloaded
 - Task 5, 6
 ## Gotchas
 - Things the next agent must know (surprising behavior, workarounds, open questions)
+## History
+(existing lines stay exactly as they are; see SKILL.md)
 ```
+
+Set the status to `implement · in progress` when you start (including when resuming after an amend or failed tests) and refresh the date as you go. Never rewrite or drop History lines when you update the rest of the file. Add one when a significant deviation happens, pointing at its DEVIATIONS.md entry.
 
 ## DEVIATIONS.md
 
@@ -44,4 +49,4 @@ The moment you do something the plan didn't say or contradicts it, append an ent
 
 - Stay inside the plan's scope. Notice-but-don't-fix unrelated problems; put them in PROGRESS.md gotchas for the report.
 - If the context is getting long, make sure PROGRESS.md is current and tell the user they can `/clear` and re-run `/justdev implement`. The files are enough to continue.
-- When all tasks are done, say so, and suggest `/justdev test`.
+- When all tasks are done, set the status to `implement · complete · next: test`, say so, and suggest `/justdev test`.
