@@ -4,7 +4,7 @@ Goal: tell the user what actually happened, from evidence rather than memory. Us
 
 ## Read
 
-PLAN.md, the code diff for the task, DEVIATIONS.md, PROGRESS.md gotchas, TEST-RESULTS.md. Not the implementation chat.
+PLAN.md, TASK.md, the code diff for the task, DEVIATIONS.md, PROGRESS.md (gotchas and History, including rejected MVPs), TEST-RESULTS.md. Not the implementation chat.
 
 ## Write
 
@@ -33,6 +33,18 @@ Where "good enough for now" was chosen, and the trade-off.
 ### Next steps
 3-5 ordered follow-ups, each worded so it can be pasted as the goal of a new `/justdev plan`. Note dependencies ("do A before B").
 ```
+
+**3. Result in TASK.md.** Under each sub-task block, add (or replace) a `## Result` with one line, in the same business wording as the Outcome: what was delivered, and plainly what is partial or not done.
+
+```markdown
+# 01 – <Heading>
+## Outcome
+- <unchanged>
+## Result
+- <what is now true for the user/business; note anything partial or not delivered>
+```
+
+Don't change the Outcome lines; they're the plan, the Result is what happened. Add a History line ("TASK.md results added").
 
 ## Rules
 
